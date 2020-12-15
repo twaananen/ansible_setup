@@ -9,6 +9,7 @@
       name:
         - htop
         - steam
+        - python3-psutil
 
   - name: copy wallpaper file
     copy:
