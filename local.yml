@@ -36,3 +36,23 @@
       dest: /home/tommi/.bashrc
       owner: tommi
       group: tommi
+
+  - name: add ansible user
+    user:
+      name: tank
+      system: yes
+
+  - name: set up sudo for ansible user 
+    copy:
+      src: files/sudoer_tank
+      dest: /etc/sudoers.d/tank
+      owner: root
+      group: root
+      mode: 0440
+
+  - name: add ansible pull cron job
+    cron:
+      name: ansible auto-provision
+      user: tank
+      minute: "*/10"
+      job: ansible-pull -o -U https://github.com/twaananen/ansible_setup.git
